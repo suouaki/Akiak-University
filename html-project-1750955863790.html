@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Stories | Akiak University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* --- Root Variables and Global Styles (Consistent with your provided code) --- */
+        :root {
+            --primary-color: #0A2342; /* Deeper Navy */
+            --secondary-color: #FFB600; /* Vibrant Gold */
+            --accent-color: #84A9C0; /* Dusty Blue */
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --text-dark: #1a1a1a;
+            --text-light: #f1f1f1;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Lora', serif;
+            --container-width: 1300px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.8;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        h1 { font-size: clamp(3rem, 7vw, 4.5rem); }
+        h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
+        h3 { font-size: clamp(1.5rem, 4vw, 1.8rem); }
+
+        p { margin-bottom: 1.5rem; color: #555; }
+        a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+        a:hover { color: var(--secondary-color); }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        .btn-primary:hover {
+            background-color: #ffc433;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 182, 0, 0.4);
+        }
+        
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Header & Navigation (Consistent) --- */
+        .main-header {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo a {
+            font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700;
+            color: var(--primary-color); text-decoration: none;
+        }
+        .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
+        .main-nav ul li { margin-left: 35px; }
+        .main-nav ul li a {
+            font-family: var(--font-heading); font-weight: 600; text-transform: uppercase;
+            font-size: 0.9em; color: var(--primary-color); padding-bottom: 5px;
+            position: relative; text-decoration: none;
+        }
+        .main-nav ul li a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            background-color: var(--secondary-color); transition: width 0.3s ease;
+        }
+        .main-nav ul li a:hover::after { width: 100%; }
+        
+        /* --- Page-Specific Hero Section --- */
+        .page-hero {
+            background: linear-gradient(rgba(248, 249, 250, 0.85), rgba(248, 249, 250, 0.85)), url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1772');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0;
+            text-align: center;
+        }
+        .page-hero h1 { color: var(--primary-color); }
+        .page-hero p { max-width: 700px; margin: 20px auto 0; font-size: 1.2rem; color: var(--text-dark); }
+
+        /* --- General Section Styling --- */
+        .section { padding: 100px 0; }
+        .section-title { text-align: center; margin-bottom: 1.5rem; }
+        .section-subtitle {
+            text-align: center; font-size: 1.2rem; color: #555;
+            max-width: 800px; margin: 0 auto 70px;
+        }
+        
+        /* --- Featured Story Section --- */
+        .featured-story {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            background-color: var(--bg-light);
+            padding: 50px;
+            border-radius: 15px;
+            margin-bottom: 80px;
+        }
+        .featured-story img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .featured-story .overline {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Filter Controls --- */
+        .filter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            background: none;
+            border: 1px solid var(--accent-color);
+            color: #555;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .filter-btn:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: var(--bg-white);
+        }
+
+        /* --- Story Grid --- */
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .story-card {
+            background: var(--bg-white);
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .story-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+        .story-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .story-card-content {
+            padding: 25px 30px;
+        }
+        .story-card .category-tag {
+            display: inline-block;
+            background-color: var(--bg-light);
+            color: var(--primary-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-family: var(--font-heading);
+        }
+        .story-card h3 { margin: 0 0 10px 0; }
+        
+        /* --- Meet Researchers Section --- */
+        .researcher-section { background-color: var(--bg-light); }
+        .researcher-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+        .researcher-profile {
+            display: flex;
+            gap: 30px;
+            align-items: flex-start;
+        }
+        .researcher-profile img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .researcher-profile h4 { margin: 0 0 5px 0; }
+        .researcher-profile .title { color: var(--primary-color); font-weight: 600; }
+        .researcher-profile blockquote {
+            margin: 15px 0 0 0;
+            font-style: italic;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 15px;
+            font-size: 1rem;
+        }
+
+        /* --- Footer (Consistent) --- */
+        .main-footer { background-color: var(--primary-color); color: var(--text-light); padding: 80px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 60px; }
+        .footer-col h4 { font-family: var(--font-heading); color: var(--bg-white); margin-bottom: 25px; font-size: 1.2rem; position: relative; padding-bottom: 15px; }
+        .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 30px; height: 3px; background-color: var(--secondary-color); }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--accent-color); transition: all 0.3s ease; }
+        .footer-col ul li a:hover { color: var(--secondary-color); padding-left: 8px; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(132, 169, 192, 0.3); color: var(--accent-color); font-size: 0.95rem; }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 1024px) {
+            .featured-story, .researcher-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+             .main-nav { display: none; }
+             .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Akiak</a>
+            </div>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="academics.html">Academics</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="campus-life.html">Campus Life</a></li>
+                    <li><a href="research.html">Research</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container fade-in">
+                <h1>Research News</h1>
+                <p>The latest breakthroughs, discoveries, and stories from the front lines of research at Akiak University.</p>
+            </div>
+        </section>
+        
+        <section class="section">
+            <div class="container">
+                <div class="featured-story fade-in">
+                    <img src="https://images.unsplash.com/photo-1616035654593-5972a9a9b75a?auto=format&fit=crop&q=80&w=1887" alt="Scientist working with ice core samples in a lab">
+                    <div>
+                        <p class="overline">Featured Breakthrough</p>
+                        <h2>The Permafrost Paradox</h2>
+                        <p>Akiak University's Geo-Metastability Lab recently published a landmark paper in *Nature Geoscience*, revealing how microbial activity within melting permafrost could create a powerful carbon sink—a discovery that could reshape climate models.</p>
+                        <a href="#" class="btn btn-primary">Read Full Story</a>
+                    </div>
+                </div>
+
+                <div class="filter-controls fade-in">
+                    <button class="filter-btn active" data-filter="all">All Stories</button>
+                    <button class="filter-btn" data-filter="climate">Climate & Polar Systems</button>
+                    <button class="filter-btn" data-filter="engineering">Resilient Engineering</button>
+                    <button class="filter-btn" data-filter="health">Health & Wellness</button>
+                    <button class="filter-btn" data-filter="data">Data Science</button>
+                </div>
+
+                <div class="story-grid">
+                    <div class="story-card fade-in" data-category="climate">
+                        <img src="https://images.unsplash.com/photo-1549887552-cb13ba496b3a?auto=format&fit=crop&q=80&w=1770" alt="Dramatic Alaskan mountain and glacier landscape">
+                        <div class="story-card-content">
+                            <span class="category-tag">Climate & Polar Systems</span>
+                            <h3>Arctic Seabird Migration Patterns Shift Dramatically, Akiak Study Finds</h3>
+                            <p>A 10-year tracking study reveals that rising sea temperatures are causing puffin colonies to alter their historic feeding grounds, with significant ecological implications.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                     <div class="story-card fade-in" data-category="engineering">
+                        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1770" alt="Close up of a circuit board">
+                        <div class="story-card-content">
+                            <span class="category-tag">Resilient Engineering</span>
+                            <h3>New Composite Materials for Arctic Construction Withstand Record Lows</h3>
+                            <p>The Advanced Materials Lab has developed a new polymer composite that remains flexible and durable at -70°F, paving the way for more resilient northern infrastructure.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                     <div class="story-card fade-in" data-category="health">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=1770" alt="Doctor showing a patient information on a tablet">
+                        <div class="story-card-content">
+                            <span class="category-tag">Health & Wellness</span>
+                            <h3>Telehealth Innovations Bridge Healthcare Gaps in Remote Alaskan Villages</h3>
+                            <p>A partnership between Akiak's nursing school and computer science department has deployed a new telehealth platform that has increased specialist access by 300%.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                     <div class="story-card fade-in" data-category="data">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1770" alt="Underwater autonomous vehicle">
+                        <div class="story-card-content">
+                            <span class="category-tag">Data Science</span>
+                            <h3>AI Models Trained on Sonar Data Learn to Identify Individual Whales</h3>
+                            <p>Using machine learning, researchers can now track the health and movement of specific beluga whales in the Cook Inlet, providing vital data for conservation efforts.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                    <div class="story-card fade-in" data-category="climate">
+                        <img src="https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?auto=format&fit=crop&q=80&w=1678" alt="Forest fire">
+                        <div class="story-card-content">
+                            <span class="category-tag">Climate & Polar Systems</span>
+                            <h3>Wildfire "Zombie Cells" Can Survive Winter, Reignite in Spring</h3>
+                            <p>Akiak fire scientists have discovered that deep-burning peat fires can smolder under the snow all winter and re-emerge, challenging current firefighting strategies.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                     <div class="story-card fade-in" data-category="engineering">
+                        <img src="https://images.unsplash.com/photo-1614090126149-7d345862ad18?auto=format&fit=crop&q=80&w=1770" alt="A drone flying over a snowy landscape">
+                        <div class="story-card-content">
+                            <span class="category-tag">Resilient Engineering</span>
+                            <h3>Drone Swarms Create 3D Maps of Unstable Terrain in Real-Time</h3>
+                            <p>A new guidance system developed at Akiak allows autonomous drones to collaboratively map areas at risk of landslide or avalanche with unprecedented speed and accuracy.</p>
+                            <a href="#">Read More →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section researcher-section">
+            <div class="container">
+                <h2 class="section-title">Meet Our Researchers</h2>
+                <p class="section-subtitle">Our research is driven by the passion and expertise of our world-class faculty and students.</p>
+                <div class="researcher-grid">
+                    <div class="researcher-profile fade-in">
+                        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=1961" alt="Portrait of Dr. Lena Petrova">
+                        <div>
+                            <h4>Dr. Lena Petrova</h4>
+                            <p class="title">Associate Professor, Materials Science</p>
+                            <blockquote>"We're not just creating stronger materials. We're asking what it means to build things that can adapt, heal, and endure in places no one thought possible."</blockquote>
+                        </div>
+                    </div>
+                    <div class="researcher-profile fade-in">
+                        <img src="https://images.unsplash.com/photo-1622954753521-872f1335b37e?auto=format&fit=crop&q=80&w=1887" alt="Portrait of Ben Carter">
+                        <div>
+                            <h4>Ben Carter</h4>
+                            <p class="title">Ph.D. Candidate, Marine Biology</p>
+                            <blockquote>"At Akiak, I was given the tools and the trust to lead my own field research on beluga whale acoustics. That level of hands-on opportunity is incredibly rare and defining."</blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container" style="text-align: center;">
+                <h2 class="section-title">Access Our Work</h2>
+                 <p class="section-subtitle">We believe in the power of open science. Explore our publications, reports, and data repositories.</p>
+                 <a href="#" class="btn btn-primary">Visit Research Repository</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer id="contact" class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Akiak University</h4>
+                    <p>707 Kincaid St.<br>Anchorage, Alaska 99501<br>United States</p>
+                    <p><strong>Admissions Email:</strong><br><a href="mailto:aki@aki.edu.kg" style="color:var(--secondary-color); text-decoration: none;">aki@aki.edu.kg</a></p>
+                    <p><strong>General Inquiries:</strong> (907) 555-2542</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li><a href="#">Career Services</a></li>
+                        <li><a href="#">Campus Map</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-col">
+                    <h4>Resources For</h4>
+                    <ul>
+                        <li><a href="#">Prospective Students</a></li>
+                        <li><a href="#">Current Students</a></li>
+                        <li><a href="#">Faculty & Staff</a></li>
+                        <li><a href="#">Alumni & Donors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Take the Next Step</h4>
+                    <p>Want to be part of the next breakthrough?</p>
+                    <a href="admissions.html" class="btn btn-primary">Apply Now</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Akiak University. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Our .edu.kg domain is maintained through our international research partnership with the Central Asian Institute of Mountain Studies.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // --- On-Scroll Fade-In Animation ---
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        });
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+    
+    // --- Research Story Filter Logic ---
+    const filterContainer = document.querySelector('.filter-controls');
+    const storyCards = document.querySelectorAll('.story-card');
+
+    if (filterContainer) {
+        filterContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                // Deactivate all buttons
+                filterContainer.querySelector('.active').classList.remove('active');
+                // Activate clicked button
+                e.target.classList.add('active');
+
+                const filterValue = e.target.getAttribute('data-filter');
+
+                storyCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (filterValue === 'all' || cardCategory === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        });
+    }
+
+</script>
+
+</body>
+</html>

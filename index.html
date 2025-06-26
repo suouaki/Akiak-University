@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akiak University | A Higher Degree of Discovery</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* --- Root Variables and Global Styles --- */
+        :root {
+            --primary-color: #0A2342; /* Deeper Navy */
+            --secondary-color: #FFB600; /* Vibrant Gold */
+            --accent-color: #84A9C0; /* Dusty Blue */
+            --bg-light: #F8F9FA;
+            --bg-dark: #1C1C1C;
+            --text-dark: #1a1a1a;
+            --text-light: #f1f1f1;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Lora', serif;
+            --container-width: 1300px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            background-color: var(--white-color);
+            color: var(--text-dark);
+            line-height: 1.8;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
+        h3 { font-size: clamp(1.5rem, 4vw, 1.8rem); }
+
+        p { margin-bottom: 1.5rem; }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        .btn-primary:hover {
+            background-color: #ffc433;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 182, 0, 0.4);
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Header & Navigation --- */
+        .main-header {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .main-header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo a {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .main-nav ul {
+            margin: 0; padding: 0; list-style: none; display: flex; align-items: center;
+        }
+        .main-nav ul li { margin-left: 35px; }
+        .main-nav ul li a {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            color: var(--primary-color);
+            padding-bottom: 5px;
+            position: relative;
+            text-decoration: none;
+        }
+        .main-nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+        .main-nav ul li a:hover::after { width: 100%; }
+        
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(rgba(10, 35, 66, 0.6), rgba(10, 35, 66, 0.6)), url('https://images.unsplash.com/photo-1609174556428-2917c093905b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center 20%;
+            background-attachment: fixed;
+            color: var(--text-light);
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .hero-content {
+            max-width: 650px;
+        }
+        .hero h1 {
+            color: var(--text-light);
+            font-size: clamp(3rem, 7vw, 4.5rem);
+            margin-bottom: 1rem;
+            text-shadow: 0 3px 15px rgba(0,0,0,0.4);
+        }
+        .hero p {
+            font-size: 1.3rem;
+            font-family: var(--font-heading);
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-light);
+            text-align: center;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .scroll-indicator::after {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 40px;
+            background: var(--text-light);
+            margin: 10px auto 0;
+            animation: scroll-pulse 2s infinite;
+        }
+        @keyframes scroll-pulse {
+            0% { transform: scaleY(1); opacity: 1; }
+            50% { transform: scaleY(1.3); opacity: 0.5; }
+            100% { transform: scaleY(1); opacity: 1; }
+        }
+
+        /* --- Section Styling --- */
+        .section {
+            padding: 100px 0;
+            overflow: hidden;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin: 0 auto 70px;
+        }
+
+        /* --- Facts & Figures Section --- */
+        .facts-section { background-color: var(--bg-light); }
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        .fact-item .icon {
+            height: 60px;
+            width: 60px;
+            margin: 0 auto 15px;
+            fill: var(--secondary-color);
+        }
+        .fact-item .number {
+            font-family: var(--font-heading);
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        .fact-item .label {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        /* --- Academics Section --- */
+        .academics-section { background-color: var(--white-color); }
+        .path-finder {
+            background-color: var(--bg-light);
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        .path-finder h3 { margin-top: 0; }
+        .path-finder-form {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+        .path-finder select, .path-finder .btn {
+            padding: 15px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border-radius: 5px;
+        }
+        .program-card {
+            background: var(--primary-color);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            color: var(--text-light);
+            transition: transform 0.4s ease;
+        }
+        .program-card:hover { transform: scale(1.03); }
+        .program-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0; left: 0;
+            opacity: 0.3;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .program-card:hover img { opacity: 0.5; transform: scale(1.1); }
+        .program-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 40px 30px;
+            min-height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .program-card-content h3 { color: var(--text-light); }
+        .program-card-content a {
+            color: var(--secondary-color);
+            font-family: var(--font-heading);
+            font-weight: 600;
+            text-decoration: underline;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* --- Video Spotlight Section --- */
+        .video-section {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+        .video-section .section-title, .video-section .section-subtitle, .video-section h3 {
+            color: var(--text-light);
+        }
+        .video-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- Testimonials Section --- */
+        .testimonials-section { background-color: var(--bg-light); }
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .testimonial-card {
+            background-color: var(--white-color);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.07);
+        }
+        .testimonial-card blockquote {
+            margin: 0;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+        .testimonial-card blockquote::before {
+            content: '“';
+            font-size: 3rem;
+            color: var(--accent-color);
+            font-weight: bold;
+            line-height: 0;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        .author-info strong {
+            display: block;
+            color: var(--primary-color);
+        }
+
+        /* --- Campus Life Gallery --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 15px;
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            position: relative;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:nth-child(1) { grid-column: 1 / 3; }
+        .gallery-item:nth-child(2) { grid-column: 3 / 4; }
+        .gallery-item:nth-child(3) { grid-column: 4 / 5; }
+        .gallery-item:nth-child(4) { grid-column: 1 / 2; }
+        .gallery-item:nth-child(5) { grid-column: 2 / 4; }
+        .gallery-item:nth-child(6) { grid-column: 4 / 5; }
+
+
+        /* --- Footer --- */
+        .main-footer {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 80px 0 30px;
+            font-size: 0.95rem;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 50px;
+            margin-bottom: 60px;
+        }
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            color: var(--white-color);
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        .footer-col h4::after {
+            content: ''; position: absolute; left: 0; bottom: 0;
+            width: 30px; height: 3px; background-color: var(--secondary-color);
+        }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--accent-color); transition: color 0.3s ease, padding-left 0.3s ease; }
+        .footer-col ul li a:hover { color: var(--secondary-color); padding-left: 8px; }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(132, 169, 192, 0.3);
+            color: var(--accent-color);
+        }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 1024px) {
+            .video-layout { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(auto, 250px); }
+            /* Reset manual grid placement for smaller screens */
+            .gallery-item:nth-child(n) { grid-column: auto; grid-row: auto; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .main-nav { display: none; } /* Hide for mobile menu logic */
+        }
+        @media (max-width: 768px) {
+            .path-finder-form { flex-direction: column; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="#">Akiak</a>
+            </div>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#academics">Academics</a></li>
+                    <li><a href="#research">Research</a></li>
+                    <li><a href="#campus-life">Campus Life</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <h1>A Higher Degree of Discovery</h1>
+                    <p>At the edge of the world lies the frontier of knowledge. Join a community of relentless innovators at Akiak University.</p>
+                    <a href="#academics" class="btn btn-primary">Find Your Calling</a>
+                </div>
+            </div>
+            <div class="scroll-indicator" aria-hidden="true">Scroll</div>
+        </section>
+
+        <section class="section facts-section">
+            <div class="container">
+                <div class="facts-grid">
+                    <div class="fact-item fade-in">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2L1 9l4 1.5V17h14v-6.5L23 9l-3.3-2.5L12 2zm0 2.24L17.76 9H6.24L12 4.24zM5 11.5l-2-1.5 9-6.75 9 6.75-2 1.5V15H5v-3.5zm2 0h10V13H7v-1.5z"/></svg>
+                        <div class="number" data-target="1200">0</div>
+                        <div class="label">Acres of Wilderness Campus</div>
+                    </div>
+                    <div class="fact-item fade-in">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zm-2 0a2 2 0 10-4 0 2 2 0 004 0zM12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm0 2a9 9 0 110 18 9 9 0 010-18zm0 16a7 7 0 100-14 7 7 0 000 14z"/></svg>
+                        <div class="number" data-target="14">0</div>
+                        <div class="label">Student-to-Faculty Ratio</div>
+                    </div>
+                    <div class="fact-item fade-in">
+                        <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93s3.05-7.44 7-7.93v15.86zm2-15.86c3.95.49 7 3.85 7 7.93s-3.05 7.44-7 7.93V4.07z"/></svg>
+                        <div class="number" data-target="40">0</div>
+                        <div class="label">Countries Represented</div>
+                    </div>
+                    <div class="fact-item fade-in">
+                         <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9A2 2 0 0011.01 2H4a2 2 0 00-2 2v7.01a2 2 0 00.58 1.41l9 9a2 2 0 002.82 0l7-7a2 2 0 000-2.82zM13 19.01L4 10.01V4h7.01l9 9-7.01 7.01zM6.5 7.5a1 1 0 100-2 1 1 0 000 2z"/></svg>
+                        <div class="number" data-target="85">0</div>
+                        <div class="label">Million in Research Grants</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="academics" class="section academics-section">
+            <div class="container">
+                <h2 class="section-title">Forge Your Path</h2>
+                <p class="section-subtitle">With over 70 degree programs across five colleges, your journey of discovery starts here. We blend rigorous theory with unparalleled hands-on experience in the world's greatest natural laboratory.</p>
+                
+                <div class="path-finder fade-in">
+                    <h3>Discover Your Path</h3>
+                    <form class="path-finder-form">
+                        <select>
+                            <option>All Areas of Study</option>
+                            <option>Arctic & Environmental Sciences</option>
+                            <option>Business & Public Policy</option>
+                            <option>Engineering & Technology</option>
+                            <option>Health & Social Sciences</option>
+                            <option>Arts & Humanities</option>
+                        </select>
+                        <a href="#" class="btn btn-primary">Search</a>
+                    </form>
+                </div>
+
+                <div class="card-grid">
+                    <div class="program-card fade-in">
+                        <img src="https://images.unsplash.com/photo-1565103170138-892339a73c9f?auto=format&fit=crop&q=80&w=1770" alt="Glacier research">
+                        <div class="program-card-content">
+                            <h3>College of Arctic & Environmental Sciences</h3>
+                            <p>Tackle climate change head-on with leading programs in Glaciology, Marine Biology, and Sustainable Resource Management.</p>
+                            <a href="#">Explore Programs →</a>
+                        </div>
+                    </div>
+                    <div class="program-card fade-in">
+                        <img src="https://images.unsplash.com/photo-1664574653790-342438725843?auto=format&fit=crop&q=80&w=1887" alt="Engineering project">
+                        <div class="program-card-content">
+                            <h3>College of Engineering & Technology</h3>
+                            <p>Innovate for extreme environments. Specialize in cold-region engineering, renewable energy systems, and aerospace technologies.</p>
+                            <a href="#">Explore Programs →</a>
+                        </div>
+                    </div>
+                    <div class="program-card fade-in">
+                         <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=1770" alt="Community health worker">
+                        <div class="program-card-content">
+                            <h3>College of Health & Social Sciences</h3>
+                            <p>Serve diverse communities with degrees in nursing, social work, and public health, focusing on rural and indigenous wellness.</p>
+                            <a href="#">Explore Programs →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="research" class="section video-section">
+            <div class="container">
+                <div class="video-layout">
+                    <div class="video-text fade-in">
+                        <h2 class="section-title" style="text-align: left; margin-bottom: 2rem;">Research That Redefines Boundaries</h2>
+                        <h3>The Aurora Project</h3>
+                        <p>Our Interdisciplinary Physics department leads the world in Magnetospheric research. This short film documents their latest expedition to capture unprecedented data from the Aurora Borealis, powering new models for space weather prediction.</p>
+                        <a href="#" class="btn btn-primary">More Research Stories</a>
+                    </div>
+                    <div class="video-wrapper fade-in">
+                        <iframe src="https://www.youtube.com/embed/ScG0s92A52A?si=m5d7xY9j8S-4wYcW&autoplay=0&mute=1&controls=1&loop=1&playlist=ScG0s92A52A" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section testimonials-section">
+            <div class="container">
+                <h2 class="section-title">Voices of Akiak</h2>
+                <p class="section-subtitle">Our students don't just learn here—they thrive. See what they have to say about their transformative experiences.</p>
+                <div class="testimonial-grid">
+                    <div class="testimonial-card fade-in">
+                        <blockquote>The hands-on research I conducted as an undergraduate was beyond anything I imagined. I was mapping glacial retreat from my first semester. Akiak doesn't just teach you; it trusts you.</blockquote>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=1961" alt="Student photo">
+                            <div class="author-info">
+                                <strong>Chloe Kim</strong>
+                                <span>B.S. in Geology, '24</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card fade-in">
+                        <blockquote>The sense of community is incredible. Whether you're in a study group or on a weekend hiking trip, you build bonds that last a lifetime. The faculty know you by name and are genuinely invested in your success.</blockquote>
+                        <div class="testimonial-author">
+                            <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&q=80&w=1887" alt="Student photo">
+                            <div class="author-info">
+                                <strong>David Chen</strong>
+                                <span>M.A. Public Policy, '25</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="campus-life" class="section">
+            <div class="container">
+                <h2 class="section-title">More Than a Campus, It's an Ecosystem</h2>
+                <p class="section-subtitle">From ice climbing clubs and dog sledding teams to our state-of-the-art innovation labs and cozy library corners, life at Akiak is an adventure in itself.</p>
+                <div class="gallery-grid">
+                    <div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1772" alt="University library"></div>
+                    <div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1621253494356-738b816c56b7?auto=format&fit=crop&q=80&w=1887" alt="Students hiking"></div>
+                    <div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1556484687-3063616463de?auto=format&fit=crop&q=80&w=1887" alt="Science lab"></div>
+                    <div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1541339907198-e08756ded668?auto=format&fit=crop&q=80&w=1770" alt="Graduation ceremony"></div>
+                    <div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1582561245057-11a13d50157f?auto=format&fit=crop&q=80&w=1770" alt="Campus building exterior"></div>
+                    <div class="gallery-item fade-in"><img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=1949" alt="Students collaborating"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer id="contact" class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Akiak University</h4>
+                    <p>707 Kincaid St.<br>Anchorage, Alaska 99501<br>United States</p>
+                    <p><strong>Admissions Email:</strong><br><a href="mailto:aki@aki.edu.kg" style="color:var(--secondary-color)">aki@aki.edu.kg</a></p>
+                    <p><strong>General Inquiries:</strong> (907) 555-2542</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li><a href="#">Career Services</a></li>
+                        <li><a href="#">Campus Map</a></li>
+                        <li><a href="#">Directory</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-col">
+                    <h4>Resources For</h4>
+                    <ul>
+                        <li><a href="#">Prospective Students</a></li>
+                        <li><a href="#">Current Students</a></li>
+                        <li><a href="#">Faculty & Staff</a></li>
+                        <li><a href="#">Alumni & Donors</a></li>
+                        <li><a href="#">Parents & Families</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Take the Next Step</h4>
+                    <p>The journey of a thousand miles begins with a single click.</p>
+                    <a href="#" class="btn btn-primary">Apply Now</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Akiak University. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Our .edu.kg domain is maintained through our international research partnership with the Central Asian Institute of Mountain Studies.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // --- On-Scroll Fade-In Animation ---
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = {
+        threshold: 0.2,
+        rootMargin: "0px 0px -50px 0px"
+    };
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, appearOptions);
+
+    faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+    });
+
+    // --- Animated Number Counter ---
+    const counters = document.querySelectorAll('.number');
+    const speed = 200; // The lower the slower
+
+    counters.forEach(counter => {
+        const animate = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const increment = Math.ceil(target / speed);
+            
+            if(count < target) {
+                counter.innerText = count + increment;
+                setTimeout(animate, 10);
+            } else {
+                counter.innerText = target.toLocaleString();
+            }
+        }
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+            if (entries[0].isIntersecting) {
+                animate();
+                observer.disconnect();
+            }
+        }, { threshold: 0.8 });
+        
+        observer.observe(counter);
+    });
+</script>
+
+</body>
+</html>

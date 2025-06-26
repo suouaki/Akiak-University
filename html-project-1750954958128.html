@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Life | Akiak University</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* --- Root Variables and Global Styles (Consistent with your provided code) --- */
+        :root {
+            --primary-color: #0A2342; /* Deeper Navy */
+            --secondary-color: #FFB600; /* Vibrant Gold */
+            --accent-color: #84A9C0; /* Dusty Blue */
+            --bg-light: #F8F9FA;
+            --bg-white: #FFFFFF;
+            --text-dark: #1a1a1a;
+            --text-light: #f1f1f1;
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Lora', serif;
+            --container-width: 1300px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: var(--font-body);
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.8;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-heading);
+            color: var(--primary-color);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        h1 { font-size: clamp(3rem, 7vw, 4.5rem); }
+        h2 { font-size: clamp(2rem, 5vw, 2.8rem); }
+        h3 { font-size: clamp(1.5rem, 4vw, 1.8rem); }
+
+        p { margin-bottom: 1.5rem; color: #555; }
+        a { color: var(--primary-color); text-decoration: none; font-weight: 600; }
+        a:hover { color: var(--secondary-color); }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        .btn-primary:hover {
+            background-color: #ffc433;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(255, 182, 0, 0.4);
+        }
+
+        /* --- Animations --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Header & Navigation (Consistent) --- */
+        .main-header {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .main-header .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo a {
+            font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700;
+            color: var(--primary-color); text-decoration: none;
+        }
+        .main-nav ul { margin: 0; padding: 0; list-style: none; display: flex; align-items: center; }
+        .main-nav ul li { margin-left: 35px; }
+        .main-nav ul li a {
+            font-family: var(--font-heading); font-weight: 600; text-transform: uppercase;
+            font-size: 0.9em; color: var(--primary-color); padding-bottom: 5px;
+            position: relative; text-decoration: none;
+        }
+        .main-nav ul li a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 50%; transform: translateX(-50%);
+            background-color: var(--secondary-color); transition: width 0.3s ease;
+        }
+        .main-nav ul li a:hover::after { width: 100%; }
+        
+        /* --- Page-Specific Hero Section --- */
+        .page-hero {
+            background: linear-gradient(rgba(10, 35, 66, 0.6), rgba(10, 35, 66, 0.6)), url('https://images.unsplash.com/photo-1531263013396-67d226909249?auto=format&fit=crop&q=80&w=1770');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0;
+            text-align: center;
+        }
+        .page-hero h1 { color: var(--bg-white); }
+        .page-hero p { max-width: 700px; margin: 20px auto 0; font-size: 1.2rem; color: var(--accent-color); }
+
+        /* --- General Section Styling --- */
+        .section { padding: 100px 0; }
+        .section-title { text-align: center; margin-bottom: 1.5rem; }
+        .section-subtitle {
+            text-align: center; font-size: 1.2rem; color: #555;
+            max-width: 800px; margin: 0 auto 70px;
+        }
+        
+        /* --- Housing & Dining --- */
+        .split-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .split-section img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* --- Clubs & Orgs Section --- */
+        .clubs-section { background-color: var(--bg-light); }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .icon-card {
+            background: var(--bg-white);
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .icon-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            border-color: var(--primary-color);
+        }
+        .icon-card svg {
+            width: 50px; height: 50px;
+            fill: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .icon-card h3 { font-size: 1.5rem; }
+        
+        /* --- Adventure Section --- */
+        .adventure-section .split-section {
+            gap: 0;
+        }
+        .adventure-content {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            padding: 60px;
+        }
+        .adventure-content h2, .adventure-content h3 { color: var(--bg-white); }
+        .adventure-content p { color: var(--accent-color); }
+        .adventure-content ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+        .adventure-content ul li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        .adventure-content ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+        .adventure-image {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* --- Wellness Section --- */
+        .wellness-section { background-color: var(--bg-light); }
+
+        /* --- Photo Gallery --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, auto);
+            gap: 15px;
+        }
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img { transform: scale(1.1); }
+        .gallery-item:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 2; }
+        .gallery-item:nth-child(2) { grid-column: 3 / 4; grid-row: 1 / 3; }
+        .gallery-item:nth-child(3) { grid-column: 4 / 5; grid-row: 1 / 2; }
+        .gallery-item:nth-child(4) { grid-column: 1 / 2; grid-row: 2 / 4; }
+        .gallery-item:nth-child(5) { grid-column: 2 / 3; grid-row: 2 / 3; }
+        .gallery-item:nth-child(6) { grid-column: 4 / 5; grid-row: 2 / 4; }
+        .gallery-item:nth-child(7) { grid-column: 2 / 4; grid-row: 3 / 4; }
+        
+        /* --- Footer (Consistent) --- */
+        .main-footer { background-color: var(--primary-color); color: var(--text-light); padding: 80px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; margin-bottom: 60px; }
+        .footer-col h4 { font-family: var(--font-heading); color: var(--bg-white); margin-bottom: 25px; font-size: 1.2rem; position: relative; padding-bottom: 15px; }
+        .footer-col h4::after { content: ''; position: absolute; left: 0; bottom: 0; width: 30px; height: 3px; background-color: var(--secondary-color); }
+        .footer-col ul { list-style: none; padding: 0; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--accent-color); transition: all 0.3s ease; }
+        .footer-col ul li a:hover { color: var(--secondary-color); padding-left: 8px; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid rgba(132, 169, 192, 0.3); color: var(--accent-color); font-size: 0.95rem; }
+
+        /* --- Responsive Adjustments --- */
+        @media (max-width: 1024px) {
+            .split-section, .adventure-section .split-section { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+            .gallery-item:nth-child(n) { grid-column: auto; grid-row: auto; } /* Reset masonry for simpler grid */
+        }
+        @media (max-width: 768px) {
+             .main-nav { display: none; }
+             .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">Akiak</a>
+            </div>
+            <nav class="main-nav" id="main-nav">
+                <ul>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="academics.html">Academics</a></li>
+                    <li><a href="admissions.html">Admissions</a></li>
+                    <li><a href="campus-life.html">Campus Life</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container fade-in">
+                <h1>Your Home on the Frontier</h1>
+                <p>Life at Akiak is more than an education—it's an adventure in community, exploration, and self-discovery. Find your people, your passion, and your place in the world.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                 <div class="split-section fade-in">
+                    <div>
+                        <h2>Live at Akiak</h2>
+                        <p>From modern residence halls with stunning mountain views to focused Living-Learning Communities, your home at Akiak is designed for comfort, connection, and collaboration.</p>
+                        <h3>Housing Options</h3>
+                        <p>Our two main residence halls, <strong>Kincaid Hall</strong> and <strong>Denali Commons</strong>, offer single and double rooms, state-of-the-art study lounges, and community kitchens. First-year students can also join Living-Learning Communities focused on Outdoor Leadership or Undergraduate Research.</p>
+                        <a href="#" class="btn btn-primary">Explore Housing</a>
+                    </div>
+                    <div>
+                        <img src="https://images.unsplash.com/photo-1574889704229-247a363531a7?auto=format&fit=crop&q=80&w=1770" alt="Modern and clean university dormitory room">
+                    </div>
+                </div>
+                 <div class="split-section fade-in" style="margin-top: 100px;">
+                     <div>
+                        <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=1887" alt="Healthy and delicious food served in a dining hall">
+                    </div>
+                    <div>
+                        <h2>Dine at Akiak</h2>
+                        <p>Fuel your adventures with delicious and nourishing food. Our dining program prioritizes locally-sourced and sustainable ingredients whenever possible.</p>
+                        <h3>Dining Venues</h3>
+                        <p><strong>The Base Camp</strong>, our main dining hall, offers all-you-can-eat options with rotating menus. For a quick bite or coffee, visit <strong>The Grind Cafe</strong> in the library or <strong>The Northern Lights Grill</strong> in the student union.</p>
+                         <a href="#" class="btn btn-primary">View Meal Plans</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section clubs-section">
+            <div class="container">
+                <h2 class="section-title">Find Your Community</h2>
+                <p class="section-subtitle">With over 80 student-run clubs and organizations, your community is waiting. Whether you want to scale a mountain or a new skill, you'll find your people here.</p>
+                <div class="icon-grid">
+                    <div class="icon-card fade-in">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16 12l-6-6-1.41 1.41L13.17 12l-4.58 4.59L10 18l6-6z M2 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10S2 17.52 2 12zm2 0c0 4.41 3.59 8 8 8s8-3.59 8-8-3.59-8-8-8-8 3.59-8 8z"/></svg>
+                        <h3>Outdoor & Adventure</h3>
+                        <p>Join the Backcountry Skiing Club, the Kayaking Crew, or the Ice Climbing Collective. The wilderness is your playground.</p>
+                    </div>
+                    <div class="icon-card fade-in">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 12H4V6h5.17l2 2H20v10z"/></svg>
+                        <h3>Academic & Professional</h3>
+                        <p>Engage with our Engineering Society, Pre-Med Association, or the Student Business Guild to build your skills and network.</p>
+                    </div>
+                    <div class="icon-card fade-in">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+                        <h3>Arts & Culture</h3>
+                        <p>From the Digital Storytellers Guild to the A Capella group "The Northern Lights," express your creative side.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section adventure-section" style="padding: 0;">
+            <div class="split-section">
+                <div class="adventure-content fade-in">
+                    <h2>The Akiak Advantage</h2>
+                    <h3>Adventure Awaits</h3>
+                    <p>Most universities have a quad. We have 1.2 million acres of national park as our backyard. Our unique location means that world-class recreation is not a vacation—it’s your weekend.</p>
+                    <ul>
+                        <li>Guided Ice Climbing on Matanuska Glacier</li>
+                        <li>Backcountry Skiing & Avalanche Safety Courses</li>
+                        <li>Northern Lights Photography Workshops</li>
+                        <li>Sea Kayaking Expeditions in Prince William Sound</li>
+                        <li>Dog Sledding Team & Mushing Classes</li>
+                    </ul>
+                </div>
+                <img class="adventure-image fade-in" src="https://images.unsplash.com/photo-1542649768-64355e793529?auto=format&fit=crop&q=80&w=1887" alt="A person ice climbing a dramatic blue glacier">
+            </div>
+        </section>
+
+        <section class="section wellness-section">
+            <div class="container">
+                <h2 class="section-title">Thrive at Akiak</h2>
+                <p class="section-subtitle">A strong mind needs a strong body and a supportive community. We provide comprehensive resources to keep you healthy, balanced, and thriving during your time here.</p>
+                <div class="icon-grid">
+                    <div class="icon-card fade-in">
+                        <h3>Health Services</h3>
+                        <p>Our on-campus clinic provides medical care, wellness check-ups, and health education for all students.</p>
+                    </div>
+                     <div class="icon-card fade-in">
+                        <h3>Counseling Services</h3>
+                        <p>Confidential mental health support, including individual counseling and group therapy, is available to all students free of charge.</p>
+                    </div>
+                     <div class="icon-card fade-in">
+                        <h3>Basecamp Rec Center</h3>
+                        <p>Stay active at our state-of-the-art recreation center, featuring a fitness center, swimming pool, and a 50-foot climbing wall.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Moments at Akiak</h2>
+                <div class="gallery-grid fade-in">
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=1949" alt="Students collaborating"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1621253494356-738b816c56b7?auto=format&fit=crop&q=80&w=1887" alt="Students hiking"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1770" alt="Students studying in a cafe"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1610484832939-2b46430b8083?auto=format&fit=crop&q=80&w=1887" alt="A person skiing in the backcountry"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1770" alt="A group of friends laughing"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1556484687-3063616463de?auto=format&fit=crop&q=80&w=1887" alt="Science lab"></div>
+                    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1606092195730-9d8f454f6a44?auto=format&fit=crop&q=80&w=1770" alt="Students sitting around a campfire"></div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer id="contact" class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Akiak University</h4>
+                    <p>707 Kincaid St.<br>Anchorage, Alaska 99501<br>United States</p>
+                    <p><strong>Admissions Email:</strong><br><a href="mailto:aki@aki.edu.kg" style="color:var(--secondary-color); text-decoration: none;">aki@aki.edu.kg</a></p>
+                    <p><strong>General Inquiries:</strong> (907) 555-2542</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li><a href="#">Career Services</a></li>
+                        <li><a href="#">Campus Map</a></li>
+                    </ul>
+                </div>
+                 <div class="footer-col">
+                    <h4>Resources For</h4>
+                    <ul>
+                        <li><a href="#">Prospective Students</a></li>
+                        <li><a href="#">Current Students</a></li>
+                        <li><a href="#">Faculty & Staff</a></li>
+                        <li><a href="#">Alumni & Donors</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Take the Next Step</h4>
+                    <p>Ready to see it for yourself?</p>
+                    <a href="admissions.html" class="btn btn-primary">Visit or Apply</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Akiak University. All Rights Reserved. | <a href="#">Privacy Policy</a></p>
+                <p style="font-size: 0.8rem; opacity: 0.7;">Our .edu.kg domain is maintained through our international research partnership with the Central Asian Institute of Mountain Studies.</p>
+            </div>
+        </div>
+    </footer>
+
+<script>
+    // --- On-Scroll Fade-In Animation ---
+    const faders = document.querySelectorAll('.fade-in');
+    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -50px 0px" };
+    const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        });
+    }, appearOptions);
+    faders.forEach(fader => appearOnScroll.observe(fader));
+</script>
+
+</body>
+</html>
